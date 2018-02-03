@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "replace.h"
+#include "traversal.h"
+
 
 //should contain main()
 
@@ -9,8 +11,11 @@ int main(int argc, char **argv)
 {
 	char *foo = getopt(argc, argv);
 
-	printf("%s\n", foo);
-	
+	printf("Target String: %s\n", foo);
+
+	int trav = traverse(".");
+
+	printf("traversal output: %d\n", trav);	
 	return 0;
 }
 
