@@ -13,9 +13,7 @@ int main(int argc, char **argv)
 
 	printf("Target String: %s\n", foo);
 
-	int trav = traverse(".");
-
-	printf("traversal output: %d\n", trav);	
+	traverse(".");
 	return 0;
 }
 

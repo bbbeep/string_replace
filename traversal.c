@@ -5,22 +5,22 @@
 #include <string.h>
 #include "traversal.h"
 
-int traverse(char *current) 
+void traverse(char *current) 
 {
-	int count = 0;	
 	DIR *dirp;
 	struct dirent *dp;
 
+	//Error checking and initializing dirp
 	if(!(dirp = opendir(current))) {
 		fprintf(stderr, "null directory error");
-		return 0;
+		return; 
 	}
 
 	// Iterating through the current directory, one file at a time
 	do {
 		if ((dp = readdir(dirp)) != NULL) {
 			if((int)dp->d_type == DT_DIR) {
-				printf("directory: %s/%s\n", current, dp->d_name);
+				//printf("directory: %s/%s\n", current, dp->d_name);
 				//dp is a directory
 
 				//We're going to ignore any directory that starts with a . (like .git, .., ., etc...
@@ -36,10 +36,10 @@ int traverse(char *current)
 					traverse(recurse_into);
 				}
 			} else if ((int)dp->d_type == DT_REG) {
-				printf("reg file: %s/%s\n", current, dp->d_name);
+				//printf("reg file: %s/%s\n", current, dp->d_name);
 				// found a textfile	
 				if(strstr(dp->d_name, ".txt")!=NULL)
-					printf("found .txt\n");	
+					printf("found %s/%s\n", current, dp->d_name);	
 				
 			} else {
 				printf("ignoring unrecognized filetype for file %s", dp->d_name);
@@ -48,7 +48,5 @@ int traverse(char *current)
 	} while (dp != NULL);
 	
 	closedir(dirp);
-	return count;
-
-
+	return;
 }
