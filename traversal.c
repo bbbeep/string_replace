@@ -4,9 +4,14 @@
 #include <stdio.h>
 #include <string.h>
 #include "traversal.h"
+#include "replace.h"
 
 void traverse(char *current) 
 {
+	//int alloc_size=sizeof(fnames)/sizeof(struct change_count);
+	//printf("(from traversal.c) Number of structs allowed in fnames:  %d\n", alloc_size);
+
+
 	DIR *dirp;
 	struct dirent *dp;
 
@@ -26,21 +31,29 @@ void traverse(char *current)
 				//We're going to ignore any directory that starts with a . (like .git, .., ., etc...
 				if(dp->d_name[0] != '.'){
 					// make a string of the right size
+					// This line isn't problematic right? allocating more space than I may need for this string....	
 					char recurse_into[sizeof(current)+sizeof(dp->d_name)+2];
-				
-					strcpy(recurse_into, current);
-					strcat(recurse_into, "/");
-					strcat(recurse_into, dp->d_name);
-			
+					if(strcmp(current, ".")){	
+						strcpy(recurse_into, current);
+						strcat(recurse_into, "/");
+						strcat(recurse_into, dp->d_name);
+					} else {
+						strcpy(recurse_into, dp->d_name);
+					}
 					printf("descending into... %s\n", recurse_into);
 					traverse(recurse_into);
 				}
 			} else if ((int)dp->d_type == DT_REG) {
 				//printf("reg file: %s/%s\n", current, dp->d_name);
 				// found a textfile	
-				if(strstr(dp->d_name, ".txt")!=NULL)
-					printf("found %s/%s\n", current, dp->d_name);	
 				
+				if(strstr(dp->d_name, ".txt")!=NULL) {
+					if(strcmp(current, ".")){	
+						printf("found %s/%s\n", current, dp->d_name);	
+					} else {
+						printf("found %s\n", dp->d_name);	
+					}	
+				}
 			} else {
 				printf("ignoring unrecognized filetype for file %s", dp->d_name);
 			}

@@ -4,8 +4,14 @@
 #include "replace.h"
 #include "traversal.h"
 
+#define INIT_FILE_ARRAY_SIZE 100
 
-//should contain main()
+//Global array of change_count structs:
+//struct change_count *fnames =  malloc(sizeof(struct change_count)*INIT_FILE_ARRAY_SIZE);
+
+//Global counts for the number of files in the array, and the allocated_size:
+int num_of_files = 0;
+int allocated_size = INIT_FILE_ARRAY_SIZE;
 
 int main(int argc, char **argv)
 {
@@ -13,6 +19,10 @@ int main(int argc, char **argv)
 
 	printf("Target String: %s\n", foo);
 
+
+//	int alloc_size=sizeof(fnames)/sizeof(struct change_count);
+//	printf("Number of structs allowed in fnames: %d\n", alloc_size);
+	
 	traverse(".");
 	return 0;
 }
