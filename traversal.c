@@ -6,6 +6,33 @@
 #include "traversal.h"
 #include "replace.h"
 
+//function to return fname lead by its relative location.
+char *proper_filename(char *current, char *fname) {
+	//char *s = NULL;
+
+	if(strcmp(current, ".")){	
+		//current is not "."		
+		char c[sizeof(current) + sizeof(fname) + 2];
+		strcpy(c, current);
+
+		strcat(c, "/");
+		strcat(c, fname);
+		return c;
+	} else {
+		char d[sizeof(fname) + 1];
+		strcpy(d, fname);
+		return d;
+	}
+
+	/*if(s == NULL){
+		fprintf(stderr, "filenaming error");
+	}
+	
+	printf("From current: %s and fname: %s, returning: %s\n", current, fname, s);
+	return s;
+	*/
+}
+
 void traverse(char *current) 
 {
 	//int alloc_size=sizeof(fnames)/sizeof(struct change_count);
@@ -17,7 +44,7 @@ void traverse(char *current)
 
 	//Error checking and initializing dirp
 	if(!(dirp = opendir(current))) {
-		fprintf(stderr, "null directory error");
+		fprintf(stderr, "null directory error\n");
 		return; 
 	}
 
@@ -50,8 +77,10 @@ void traverse(char *current)
 				if(strstr(dp->d_name, ".txt")!=NULL) {
 					if(strcmp(current, ".")){	
 						printf("found %s/%s\n", current, dp->d_name);	
+						//add_fname_to_fcount_array(current/dp->d_name);	
 					} else {
 						printf("found %s\n", dp->d_name);	
+						add_fname_to_fcount_array(dp->d_name, 0);
 					}	
 				}
 			} else {
