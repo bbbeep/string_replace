@@ -54,7 +54,16 @@ int main(int argc, char **argv)
 
 
 	printf("first element of fcount_array: %s\n", fcount_array[0].fname);
+	
 
+
+
+    	if (fcount_array != NULL) {
+       		for (int ix = 1;  (ix < num_files);  ix += 1) {
+            		free(fcount_array[ix].fname);
+        	}
+        free(fcount_array);
+    	}
 	return 0;
 }
 

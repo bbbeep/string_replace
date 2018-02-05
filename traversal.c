@@ -2,10 +2,11 @@
 
 #include <dirent.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "traversal.h"
 #include "replace.h"
-
+#include "text.h"
 
 void traverse(char *current) 
 {
@@ -43,10 +44,14 @@ void traverse(char *current)
 				// found a textfile	
 				
 				if(strstr(dp->d_name, ".txt")!=NULL) {
-					char file_loc[strlen(current)+strlen(dp->d_name)+2];
+					char *file_loc = malloc(strlen(current)+strlen(dp->d_name)+2);
+					if(file_loc == NULL) {
+						fprintf(stderr, "malloc error\n");
+					}
 					sprintf(file_loc, "%s/%s", current, dp->d_name);
 					printf("found %s\n", file_loc);	
-					add_fname_to_fcount_array(file_loc, 0);	
+					int count = replace(file_loc, "foo");
+					add_fname_to_fcount_array(file_loc, count);	
 				}
 			} else {
 				printf("ignoring unrecognized filetype for file %s", dp->d_name);
