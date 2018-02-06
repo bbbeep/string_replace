@@ -25,7 +25,7 @@ int replace(char *fname, char *target)
 	int count = 0;
 
 	FILE* file = fopen(fname, "r+");
-	//FILE* tmp = fopen("tmp.tmp", "w");
+	FILE* tmp = fopen(fname, "r+");
 
 	char line_buf[1024];
 	char line_lower[1024];
@@ -50,22 +50,23 @@ int replace(char *fname, char *target)
 		{
 			int pos = (int)(next_targ - line_lower);
 			
-			printf("Found %s at position %d, in the line \n%s\n", target, pos, line_buf);
-
-			next_targ = target_upper;
-
-			//printf("Replaced %s at position %d, in the line \n%s\n", target, pos, line_buf);
+			printf("Found %s at position %d, in the line \n%s", target, pos, line_buf);
+			
+			memcpy(&(line_buf[pos]), target_upper, strlen(target_upper));
+			
+			printf("Replaced %s at position %d, in the line \n%s\n", target, pos, line_buf);
 
 			char *search_after = next_targ + strlen(target_lower);
+			//shouldn't increment count if the word was already uppercase...
 			count += 1;
 			
 			next_targ= strstr(search_after, target_lower);
 		}	
-
+		fputs(line_buf, tmp);
 	}
 
 	fclose(file);
-	//fclose(tmp);
+	fclose(tmp);
 	return count;
 }
 

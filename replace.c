@@ -51,14 +51,17 @@ int main(int argc, char **argv)
 
 	traverse(".", target);
 
+	//print out all elements of array
+	for (int ix = 0;  (ix < num_files);  ix += 1) {
 
-	printf("first element of fcount_array: %s\n", fcount_array[0].fname);
+		printf("array element: %s with %d replacements\n", fcount_array[ix].fname, fcount_array[ix].changes);
+	}
 	
 
 
-
     	if (fcount_array != NULL) {
-       		for (int ix = 1;  (ix < num_files);  ix += 1) {
+		//possible bug! Was ix = 1, changed to ix = 0 to get rid of mem leak.
+       		for (int ix = 0;  (ix < num_files);  ix += 1) {
             		free(fcount_array[ix].fname);
         	}
         free(fcount_array);
