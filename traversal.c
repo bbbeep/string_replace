@@ -8,7 +8,7 @@
 #include "replace.h"
 #include "text.h"
 
-void traverse(char *current) 
+void traverse(char *current, char *target) 
 {
 	//int alloc_size=sizeof(fnames)/sizeof(struct change_count);
 	//printf("(from traversal.c) Number of structs allowed in fnames:  %d\n", alloc_size);
@@ -37,7 +37,7 @@ void traverse(char *current)
 					char recurse_into[strlen(current)+strlen(dp->d_name)+2];
 					sprintf(recurse_into, "%s/%s", current, dp->d_name);
 					printf("descending into... %s\n", recurse_into);
-					traverse(recurse_into);
+					traverse(recurse_into, target);
 				}
 			} else if ((int)dp->d_type == DT_REG) {
 				//printf("reg file: %s/%s\n", current, dp->d_name);
@@ -50,7 +50,7 @@ void traverse(char *current)
 					}
 					sprintf(file_loc, "%s/%s", current, dp->d_name);
 					printf("found %s\n", file_loc);	
-					int count = replace(file_loc, "foo");
+					int count = replace(file_loc, target);
 					add_fname_to_fcount_array(file_loc, count);	
 				}
 			} else {

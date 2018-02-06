@@ -3,7 +3,7 @@
 #include <string.h>
 #include "replace.h"
 #include "traversal.h"
-
+#include "text.h"
 
 //Global counts for the number of files in the array, and the allocated_size:
 int num_files = 0;
@@ -44,13 +44,12 @@ int main(int argc, char **argv)
 {
 	allocated_size = 32;
 	fcount_array = (struct file_count*)malloc(allocated_size*sizeof(struct file_count));
-	int alloc_size=sizeof(fcount_array)/sizeof(struct file_count);
-	printf("Number of structs allowed in array: %d\n", alloc_size);
+	//int alloc_size=sizeof(fcount_array)/sizeof(struct file_count);
 
-	char *foo = getopt(argc, argv);
-	printf("Target String: %s\n", foo);
+	char *target = getopt(argc, argv);
+	printf("Target String: %s\n", target);
 
-	traverse(".");
+	traverse(".", target);
 
 
 	printf("first element of fcount_array: %s\n", fcount_array[0].fname);
