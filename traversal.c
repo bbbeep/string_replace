@@ -18,6 +18,25 @@
 #include "text.h"
 #include "report.h"
 
+
+void add_fname_to_fcount_array(char *s, int c) {
+        if(num_files == allocated_size) {
+                struct file_count *tmp_fcount_array = realloc(fcount_array, 2*allocated_size*sizeof(struct file_count));
+
+                if(tmp_fcount_array == NULL) {
+                        fprintf(stderr, "Too many file counter structs, skipping %s", s);
+                        return;
+                }
+
+                fcount_array = tmp_fcount_array;
+                allocated_size *= 2;
+        }
+
+        fcount_array[num_files].fname = s;
+        fcount_array[num_files].changes = c;
+        num_files++;
+}
+
 void traverse(char *current, char *target) 
 {
 	DIR *dirp;

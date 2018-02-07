@@ -38,6 +38,8 @@ void make_report(char *target, struct file_count *farray) {
 	qsort(farray, num_files, sizeof(farray[0]), compare_count);	
 
 	for (int ix = 0;  (ix < num_files);  ix += 1) {
+		if(farray[ix].changes == 0) 
+			break;
                 printf("%d		%s\n", farray[ix].changes, farray[ix].fname + 2);
         }
 }	

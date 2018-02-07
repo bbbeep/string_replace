@@ -36,10 +36,10 @@ int replace(char *fname, char *target)
 	FILE* file_in = fopen(fname, "r");
 	FILE* file_out = fopen(fname, "r+");
 
-	char line_buf[1024];
+	char line_buf[4096];
 	
 	// These are used to do a case-insenstive search	
-	char line_lower[1024];
+	char line_lower[4096];
 	char target_lower[strlen(target)+1];
 	strcpy(target_lower, target);
 	s_to_lower(target_lower);
