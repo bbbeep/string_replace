@@ -1,5 +1,3 @@
-//traversing directory
-
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,10 +8,6 @@
 
 void traverse(char *current, char *target) 
 {
-	//int alloc_size=sizeof(fnames)/sizeof(struct change_count);
-	//printf("(from traversal.c) Number of structs allowed in fnames:  %d\n", alloc_size);
-
-
 	DIR *dirp;
 	struct dirent *dp;
 
@@ -27,29 +21,24 @@ void traverse(char *current, char *target)
 	do {
 		if ((dp = readdir(dirp)) != NULL) {
 			if((int)dp->d_type == DT_DIR) {
-				//printf("directory: %s/%s\n", current, dp->d_name);
-				//dp is a directory
-
-				//We're going to ignore any directory that starts with a . (like .git, .., ., etc...
+				// Ignoring hidden directories.
 				if(dp->d_name[0] != '.'){
-					// make a string of the right size
-					// This line isn't problematic right? allocating more space than I may need for this string....	
 					char recurse_into[strlen(current)+strlen(dp->d_name)+2];
 					sprintf(recurse_into, "%s/%s", current, dp->d_name);
-					printf("descending into... %s\n", recurse_into);
+					// recursive call
 					traverse(recurse_into, target);
 				}
+
 			} else if ((int)dp->d_type == DT_REG) {
-				//printf("reg file: %s/%s\n", current, dp->d_name);
-				// found a textfile	
-				
-				if(strstr(dp->d_name, ".txt")!=NULL) {
+				if(!(strcmp(&(dp->d_name[strlen(dp->d_name) - 4]), ".txt"))) {
+					//Found a .txt file, add to fcount array.
 					char *file_loc = malloc(strlen(current)+strlen(dp->d_name)+2);
 					if(file_loc == NULL) {
-						fprintf(stderr, "malloc error\n");
+						fprintf(stderr, "Malloc error\n");
 					}
 					sprintf(file_loc, "%s/%s", current, dp->d_name);
-					printf("found %s\n", file_loc);	
+					
+					//Call to replace() which returns count of replacements.
 					int count = replace(file_loc, target);
 					add_fname_to_fcount_array(file_loc, count);	
 				}
