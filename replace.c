@@ -1,3 +1,12 @@
+/**
+ * @file replace.c
+ * @author David Gray
+ * Student ID: 40055149
+ * @date 6 Feb 2018
+ *
+ * This file contains main, and processes the command line arguments.
+ */ 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +35,8 @@ char *getopt(int argc, char **argv)
 	}
 }
 
+
+// Put a entry into the array of file_count structs.
 void add_fname_to_fcount_array(char *s, int c) {
 	if(num_files == allocated_size) {
 		struct file_count *tmp_fcount_array = realloc(fcount_array, 2*allocated_size*sizeof(struct file_count));
@@ -42,7 +53,7 @@ void add_fname_to_fcount_array(char *s, int c) {
 	fcount_array[num_files].fname = s;
 	fcount_array[num_files].changes = c;
 	num_files++;
-}
+} 
 
 void free_fcount_array(){
     	if (fcount_array != NULL) {
@@ -60,7 +71,8 @@ int main(int argc, char **argv)
 {
 	char *target = getopt(argc, argv);
 	
-	allocated_size = 2;
+	allocated_size = 32;
+	
 	fcount_array = (struct file_count*)malloc(allocated_size*sizeof(struct file_count));
 
 	traverse(".", target);

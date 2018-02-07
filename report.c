@@ -1,10 +1,19 @@
+/**
+ * @file report.c
+ * @author David Gray
+ * Student ID: 40055149
+ * @date 6 Feb 2018
+ *
+ * This file deals with creating the report. It has a comparison function
+ * for the file_count structs, and a function make_report to print the report. 
+ */
+
 
 #include <stdio.h>
-
-
 #include <stdlib.h>
 #include <unistd.h>
 #include "replace.h"
+#include "report.h"
 
 int compare_count(const void *a, const void *b) {
 	struct file_count *fcount_a = (struct file_count *)a;
@@ -12,6 +21,7 @@ int compare_count(const void *a, const void *b) {
 
 	return((fcount_b->changes)-(fcount_a->changes));	
 }
+
 
 void make_report(char *target, struct file_count *farray) {
 

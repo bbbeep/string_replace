@@ -1,3 +1,14 @@
+/**
+ * @file traversal.c
+ * @author David Gray
+ * Student ID: 40055149
+ * @date 6 Feb 2018
+ *
+ * This file contains function traverse() which recurses through child directories,
+ * and calls the replace() function with the target string, when it finds a .txt file.
+ */
+
+
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,6 +16,7 @@
 #include "traversal.h"
 #include "replace.h"
 #include "text.h"
+#include "report.h"
 
 void traverse(char *current, char *target) 
 {

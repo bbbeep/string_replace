@@ -1,3 +1,12 @@
+/**
+ * @file text.c
+ * @author David Gray
+ * Student ID: 40055149
+ * @date 6 Feb 2018
+ *
+ * This file has function replace() which takes a filename and a target string, and
+ * finds the string anywhere it may occur in the file, and replaces it with all caps.
+ */
 
 #include <stdio.h>
 #include <string.h>
