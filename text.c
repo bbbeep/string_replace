@@ -72,10 +72,10 @@ int replace(char *fname, char *target)
 			char *search_after = next_targ + strlen(target_lower);
 			next_targ= strstr(search_after, target_lower);
 		}	
-
+		//printf("%s",....) or sprintf() is also allowed!
 		fputs(line_buf, file_out);
 	}
-
+	//remember to fclose()
 	fclose(file_in);
 	fclose(file_out);
 	return count;
