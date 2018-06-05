@@ -23,7 +23,7 @@ int allocated_size = 0;
 struct file_count *fcount_array = NULL;
 
 
-char *getopt(int argc, char **argv)
+char *getopt(int argc, char argv[])
 {
 	if(argc > 1)
 	{
@@ -46,7 +46,7 @@ void free_fcount_array(){
 }
 
 //Main
-int main(int argc, char **argv)
+int main(int argc, char argv[])
 {
 	char *target = getopt(argc, argv);
 	
