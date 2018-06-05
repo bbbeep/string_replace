@@ -4,7 +4,6 @@
  * Student ID: 40055149
  * @date 6 Feb 2018
  *
- * This file contains main, and processes the command line arguments.
  */ 
 
 #include <stdio.h>
