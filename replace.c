@@ -6,6 +6,8 @@
  *
  * This file contains main, and processes the command line arguments.
  */ 
+#define SIZE 32
+allocated_size = 32
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,9 +52,7 @@ int main(int argc, char argv[])
 {
 	char *target = getopt(argc, argv);
 	
-	allocated_size = 32;
-	
-	fcount_array = (struct file_count*)malloc(allocated_size*sizeof(struct file_count));
+	fcount_array = (struct file_count*)malloc(SIZE*sizeof(struct file_count));
 	if(fcount_array == NULL) {
 		fprintf(stderr, "Malloc error for fcount_array");
 	}
